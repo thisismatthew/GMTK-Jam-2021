@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 238053750}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Untagged
+  m_TagString: Core
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238053747}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42376512, y: -0.7339894, z: 0.6719212}
+  m_LocalPosition: {x: -3.061, y: -0.7339894, z: 0.6719212}
   m_LocalScale: {x: 0.78586, y: 0.78586, z: 0.78586}
   m_Children: []
   m_Father: {fileID: 1250929689}
@@ -289,6 +289,8 @@ GameObject:
   - component: {fileID: 597139029}
   - component: {fileID: 597139028}
   - component: {fileID: 597139030}
+  - component: {fileID: 597139032}
+  - component: {fileID: 597139031}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -304,7 +306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597139026}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.123, y: 0.006, z: 0}
+  m_LocalPosition: {x: 0.067, y: 0.006, z: 0}
   m_LocalScale: {x: 0.6, y: 0.48000002, z: 0.6}
   m_Children: []
   m_Father: {fileID: 860911599}
@@ -390,6 +392,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LocalController: {fileID: 860911600}
+--- !u!255 &597139031
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597139026}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -0.032234877, y: -2.1790106}
+  m_DampingRatio: 0
+  m_Frequency: 0
+--- !u!50 &597139032
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597139026}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &860911598
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,9 +441,10 @@ GameObject:
   m_Component:
   - component: {fileID: 860911599}
   - component: {fileID: 860911603}
-  - component: {fileID: 860911602}
   - component: {fileID: 860911601}
   - component: {fileID: 860911600}
+  - component: {fileID: 860911604}
+  - component: {fileID: 860911602}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -418,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860911598}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3.78, y: -2.98, z: 0.6719212}
+  m_LocalPosition: {x: -0.45, y: -2.98, z: 0.6719212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 597139027}
@@ -477,7 +519,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.0000000037252903}
   m_Size: {x: 1.0000002, y: 2.0000005}
   m_Direction: 0
 --- !u!212 &860911603
@@ -531,6 +573,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!255 &860911604
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860911598}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 597139032}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0.0100000175, y: -0.13958311}
+  m_DampingRatio: 0
+  m_Frequency: 0
 --- !u!1 &958622081
 GameObject:
   m_ObjectHideFlags: 0
