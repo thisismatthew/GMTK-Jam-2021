@@ -407,7 +407,7 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.032234877, y: -2.1790106}
+  m_ConnectedAnchor: {x: -0.032234877, y: -1.1190104}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!50 &597139032
@@ -460,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860911598}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.45, y: -2.98, z: 0.6719212}
+  m_LocalPosition: {x: -0.45, y: -1.92, z: 0.6719212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 597139027}
@@ -485,6 +485,15 @@ MonoBehaviour:
   RegularJumpHeight: 10
   ChargedJumpHeight: 15
   TimeToJumpApex: 0.5
+  RightLegAnimationTarget: {fileID: 0}
+  LeftLegAnimationTarget: {fileID: 0}
+  RightFoot: {fileID: 0}
+  LeftFoot: {fileID: 0}
+  RightUpdateTarget: {fileID: 0}
+  LeftUpdateTarget: {fileID: 0}
+  CollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &860911601
 Rigidbody2D:
   serializedVersion: 4
@@ -588,7 +597,7 @@ FixedJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.0100000175, y: -0.13958311}
+  m_ConnectedAnchor: {x: 0.0100000175, y: -0.1395836}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!1 &958622081
