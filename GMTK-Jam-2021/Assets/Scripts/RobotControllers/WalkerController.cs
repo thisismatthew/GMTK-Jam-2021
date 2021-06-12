@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.IK;
 
 public class WalkerController : Controller
 {
     [Header("IK Animation")]
     public float StepSpeed = 0.1f;
     public float StepSize = 1f;
+    public float FootHeightOffset = 0.95f;
     public Transform[] AnimationTargets;
     public Transform[] SolverTargets;
     public Transform[] UpdateTargets;
     public LayerMask CollisionLayer;
+
 
     void FixedUpdate()
     {
@@ -32,23 +35,37 @@ public class WalkerController : Controller
         }
     }
 
+    protected override void Move(Vector2 newVelocity)
+    {
+        
+        if (!IsGrounded())
+            newVelocity.y = 0;
+
+        base.Move(newVelocity);
+    }
+
     public void Update()
     {
         if (IsGrounded())
         {
+            GetComponent<IKManager2D>().enabled = true;
             for (int i = 0; i<SolverTargets.Length; i++)
             {
                 SnapFeetToGround(ref SolverTargets[i], ref AnimationTargets[i], UpdateTargets[i]);
             }
-
+        }
+        else
+        {
+            GetComponent<IKManager2D>().enabled = false;
         }
 
     }
 
     public void SnapFeetToGround(ref Transform solverTarget, ref Transform animationTarget, Transform updateTarget)
     {
+
         //shoot a blue ray down to the ground from the update point that moves with the player
-        RaycastHit2D updateTargetHit = Physics2D.Raycast(updateTarget.position, Vector2.down, 3f, CollisionLayer);
+        RaycastHit2D updateTargetHit = Physics2D.Raycast(updateTarget.position, Vector2.down, 100f, CollisionLayer);
         Debug.DrawLine(updateTarget.position, updateTargetHit.point, Color.blue);
 
         //if the solver target gets too far from the update target position
@@ -60,12 +77,16 @@ public class WalkerController : Controller
         }
 
         //shoot a cyan ray down to the ground to show where the solver targets new position should be. 
-        RaycastHit2D animationTargetHit = Physics2D.Raycast(animationTarget.position, Vector2.down, 3f, CollisionLayer);
+        RaycastHit2D animationTargetHit = Physics2D.Raycast(animationTarget.position, Vector2.down, 100f, CollisionLayer);
         Debug.DrawLine(animationTarget.position, animationTargetHit.point, Color.cyan);
 
-        //smoothly lerp the solver towards that position
-        solverTarget.position = Vector2.Lerp(solverTarget.position, animationTargetHit.point, StepSpeed);
+        //add an offset for the height of the feet.
+        Vector2 offset = new Vector2(0, FootHeightOffset);
 
+        //smoothly lerp the solver towards that position
+        solverTarget.position = Vector2.Lerp(solverTarget.position, animationTargetHit.point + offset, StepSpeed);
+
+        Debug.DrawLine(solverTarget.position, updateTargetHit.point + offset, Color.red);
             
 
     }

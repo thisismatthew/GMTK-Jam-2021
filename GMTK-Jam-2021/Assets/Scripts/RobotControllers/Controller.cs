@@ -4,19 +4,23 @@ using UnityEngine;
 
 public abstract class Controller : MonoBehaviour
 {
-    private Rigidbody2D _rigidbody;
-
+    protected Rigidbody2D _rigidbody;
+    
+ 
     [Header("Movement")]
     public float Acceleration = 0.01f;
     public float MaxSpeed = 6f;
     protected Vector2 _velocity = Vector2.zero;
     protected float _horizontalInput = 0f;
+    protected float _verticalInput = 0f;
+    public LayerMask LayerMask;
 
     [Header("Jumping")]
     public float ChargeUpTime = 0.5f;
     public float RegularJumpHeight = 10f;
     public float ChargedJumpHeight = 15f;
     public float TimeToJumpApex = 0.5f;
+    public Transform GroundingRoot;
     protected bool _jumpCharging = false;
     protected bool _jumpRequested = false;
     protected bool _jumpCompleted = false;
@@ -39,6 +43,8 @@ public abstract class Controller : MonoBehaviour
             _jumpRequested = true;
         }
         _horizontalInput = inputs.HorizonalMovement;
+        _verticalInput = inputs.VerticalMovement;
+
     }
 
     protected void UpdateHorizontalMovementVelocity()
@@ -82,11 +88,11 @@ public abstract class Controller : MonoBehaviour
     {
 
         Vector2 direction = Vector2.down;
-        float distance = 1f;
+        float distance = 4f;
         Color debugGroundColor = Color.red;
-        Vector2 position = transform.position;
+        Vector2 position = GroundingRoot.position;
         position.y += distance;
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance);
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, LayerMask);
         if (hit.collider != null)
         {
             debugGroundColor = Color.green;
@@ -98,11 +104,9 @@ public abstract class Controller : MonoBehaviour
         return false;
     }
 
-    protected void Move(Vector2 newVelocity)
+    protected virtual void Move(Vector2 newVelocity)
     {
-        //make sure we only add to the y axis when we are grounded
-        if (!IsGrounded())
-            newVelocity.y = 0;
+
 
         //make sure that we are adding negative force to keep us under the speed limit
         if (_rigidbody.velocity.x > MaxSpeed)
