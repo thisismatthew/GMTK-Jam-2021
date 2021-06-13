@@ -13,4 +13,12 @@ public class LevitateTarget : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Liftable")
+        {
+            controller.LevitationObject = null;
+        }
+    }
+
 }

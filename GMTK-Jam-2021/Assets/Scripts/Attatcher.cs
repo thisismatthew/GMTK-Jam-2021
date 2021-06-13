@@ -11,6 +11,7 @@ public class Attatcher : MonoBehaviour
         {
             if (collision.gameObject.tag == "Core")
             {
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 collision.gameObject.GetComponent<CoreController>().ConnectToHost(this.transform.parent.gameObject, this.gameObject);
                 CoreConected = true;
             }

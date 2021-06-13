@@ -13,26 +13,18 @@ public class WalkerController : Controller
     public Transform[] SolverTargets;
     public Transform[] UpdateTargets;
     public LayerMask CollisionLayer;
-
+    private bool _plungeRequested = false;
+    private bool _plungeComplete = true;
+    private float _plungeTimer = 0f;
+    public Animator plunger;
 
     void FixedUpdate()
     {
-        if (_jumpCharging)
-        {
-            _jumpChargeTime += Time.deltaTime;
-        }
-
-        UpdateJumpVelocity();
+        
         UpdateHorizontalMovementVelocity();
         Move(_velocity);
 
-        if (_jumpCompleted)
-        {
-            _velocity.y = 0;
-            _jumpCompleted = false;
-            _jumpChargeTime = 0;
-            _jumpRequested = false;
-        }
+       
     }
 
     protected override void Move(Vector2 newVelocity)
@@ -44,8 +36,34 @@ public class WalkerController : Controller
         base.Move(newVelocity);
     }
 
+    public override void RecieveInputs(ref PlayerInputs inputs)
+    {
+        if (inputs.JumpDown && _plungeComplete == true)
+        {
+            _plungeRequested = true;
+            plunger.Play("plungerAnim");
+            Debug.Log("Play");
+        }
+        if (_plungeRequested)
+        {
+            _plungeTimer += Time.deltaTime;
+        }
+        if (_plungeTimer>= 1.5f)
+        {
+            _plungeComplete = true;
+            _plungeRequested = false;
+            _plungeTimer = 0;
+        }
+
+        _horizontalInput = inputs.HorizonalMovement;
+        _verticalInput = inputs.VerticalMovement;
+        
+    }
+
     public void Update()
     {
+        
+
         if (IsGrounded())
         {
             GetComponent<IKManager2D>().enabled = true;

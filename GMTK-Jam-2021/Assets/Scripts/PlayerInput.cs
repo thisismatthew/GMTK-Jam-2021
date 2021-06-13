@@ -14,14 +14,14 @@ public struct PlayerInputs
 public class PlayerInput : MonoBehaviour
 {
     public Controller CurrentController;
-    private Controller _core;
+    private CoreController _core;
     private PlayerInputs _currentInput;
     private FixedJoint2D _joint;
 
     private void Start()
     {
         _joint = GetComponent<FixedJoint2D>();
-        _core = CurrentController;
+        _core = (CoreController)CurrentController;
     }
 
     void Update()
@@ -38,6 +38,7 @@ public class PlayerInput : MonoBehaviour
             CurrentController = _core;
             _joint.enabled = false;
             _joint.connectedBody = null;
+            _core.Connected = false;
         }
             
 
