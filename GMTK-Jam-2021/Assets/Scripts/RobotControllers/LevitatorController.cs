@@ -22,11 +22,11 @@ public class LevitatorController : Controller
         if (_horizontalInput > 0.01f || _horizontalInput < -0.01f)
         {
             
-            _newTargetPos.x = _target.transform.position.x + _horizontalInput;
+            _newTargetPos.x = _target.transform.position.x + (_horizontalInput*2);
         }
         if (_verticalInput > 0.01f || _verticalInput < -0.01f)
         {
-            _newTargetPos.y = _target.transform.position.y + _verticalInput;
+            _newTargetPos.y = _target.transform.position.y + (_verticalInput * 2);
         }
         _target.position = Vector2.Lerp(_target.position, _newTargetPos, 0.05f);
 

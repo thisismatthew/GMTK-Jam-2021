@@ -26,6 +26,7 @@ public abstract class Controller : MonoBehaviour
     protected bool _jumpCompleted = false;
     protected float _jumpChargeTime = 0f;
     protected bool _grounded;
+    public float GroundingDistance = 4;
 
     private void Start()
     {
@@ -84,11 +85,11 @@ public abstract class Controller : MonoBehaviour
         return (2 * jumpHeight) / Mathf.Pow(2, TimeToJumpApex);
     }
 
-    protected bool IsGrounded()
+    protected bool IsGrounded(Transform GroundingRoot)
     {
 
         Vector2 direction = Vector2.down;
-        float distance = 4f;
+        float distance = GroundingDistance;
         Color debugGroundColor = Color.red;
         Vector2 position = GroundingRoot.position;
         position.y += distance;

@@ -9,6 +9,8 @@ public class CoreController : Controller
     private Transform _lastConnectionPoint;
     public float ReconectionRadius = 2f;
     public bool Connected = false;
+    public Transform GroundingRoot2;
+    public Transform GroundingRoot3;
 
     private void Start()
     {
@@ -20,14 +22,23 @@ public class CoreController : Controller
     {
         if (!Connected)
         {
+
+
+
             if (_jumpCharging)
             {
                 _jumpChargeTime += Time.deltaTime;
             }
 
-            UpdateJumpVelocity();
+            if (IsGrounded(GroundingRoot)|| IsGrounded(GroundingRoot2)|| IsGrounded(GroundingRoot3))
+            {
+                UpdateJumpVelocity();
+            }
+            
             UpdateHorizontalMovementVelocity();
             Move(_velocity);
+
+         
 
             if (_jumpCompleted)
             {

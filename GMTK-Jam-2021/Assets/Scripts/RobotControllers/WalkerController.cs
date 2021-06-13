@@ -30,7 +30,7 @@ public class WalkerController : Controller
     protected override void Move(Vector2 newVelocity)
     {
         
-        if (!IsGrounded())
+        if (!IsGrounded(GroundingRoot))
             newVelocity.y = 0;
 
         base.Move(newVelocity);
@@ -64,7 +64,7 @@ public class WalkerController : Controller
     {
         
 
-        if (IsGrounded())
+        if (IsGrounded(GroundingRoot))
         {
             GetComponent<IKManager2D>().enabled = true;
             for (int i = 0; i<SolverTargets.Length; i++)
